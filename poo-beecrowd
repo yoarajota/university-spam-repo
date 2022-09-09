@@ -1,21 +1,21 @@
 //  1160 - Population Increase
-var T = lines[0]
-for (let c = 0; c < T; c++) {
+for (let c = 0; c < lines[0]; c++) {
     let line = lines[c + 1].split(" ");
-    let PA = parseFloat(line[0])
-    let PB = parseFloat(line[1])
-    let G1 = parseFloat(line[2])
-    let G2 = parseFloat(line[3].replace('\r', ''))
+    let PA = parseFloat(line[0]);
+    let PB = parseFloat(line[1]);
+    let G1 = parseFloat(line[2]);
+    let G2 = parseFloat(line[3].replace('\r', ''));
     var anos = 0;
     while (PA <= PB) {
-        PA = PA + (PA * G1 / 100)
-        PB = PB + (PB * G2 / 100)
-        anos++
+        PA = PA + (PA * G1 / 100);
+        PB = PB + (PB * G2 / 100);
+        anos++;
+
+        if (anos > 100) {
+            console.log('Mais de 1 seculo.');
+            break;
+        }
     }
 
-    if (anos > 100) {
-        console.log('Mais de 1 seculo.')
-    } else {
-        console.log(anos + ' anos.')
-    }
+    console.log(anos + ' anos.');
 }
