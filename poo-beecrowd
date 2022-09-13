@@ -19,3 +19,123 @@ for (let c = 0; c < lines[0]; c++) {
 
     console.log(anos + ' anos.');
 }
+
+// 1005 - Average 1
+var input = require('fs').readFileSync('./stdin', 'utf8');
+var lines = input.split('\n');
+
+/**
+ * Escreva a sua solução aqui
+ * Code your solution here
+ * Escriba su solución aquí
+ */
+ 
+let A = parseFloat(lines[0]) * 3.5;
+let B = parseFloat(lines[1]) * 7.5;
+let media = parseFloat(A)+parseFloat(B);
+media = media/11
+
+console.log("MEDIA = " + media.toFixed(5));
+
+// 1008 - Salary
+let A = lines[0];
+let B = lines[1];
+let C = parseFloat(lines[2]);
+
+console.log("NUMBER = " + A);
+console.log("SALARY = U$ " + parseFloat(B*C).toFixed(2));
+
+// 1013 - The Greatest
+let line = lines[0].split(" ")
+let A = parseInt(line[0]);
+let B = parseInt(line[1]);
+let C = parseInt(line[2].replace('\r', ''));
+
+let maior = '';
+if (A >= B && A >= C) {
+    maior = A;
+}
+if (B >= A && B >= C) {
+    maior = B
+
+} 
+if (C >= A && C >= B) {
+    maior = C;
+}
+
+if (maior !== '') {
+    console.log(maior + " eh o maior")
+}
+
+// 1018 - Banknotes
+let line = parseInt(lines[0]);
+let cem = parseInt(line / 100);
+let cin = parseInt((line - (cem * 100)) / 50);
+let vin = parseInt((line - (cem * 100) - (cin * 50)) / 20);
+let dez = parseInt((line - (cem * 100) - (cin * 50) - (vin * 20)) / 10);
+let cinco = parseInt((line - (cem * 100) - (cin * 50) - (vin * 20) - (dez * 10)) / 5);
+let dois = parseInt((line - (cem * 100) - (cin * 50) - (vin * 20) - (dez * 10) - (cinco * 5)) / 2);
+let um = parseInt((line - (cem * 100) - (cin * 50) - (vin * 20) - (dez * 10) - (cinco * 5) - (dois * 2)) / 1);
+
+console.log(cem, "nota(s) de R$ 100,00")
+console.log(cin, "nota(s) de R$ 50,00")
+console.log(vin, "nota(s) de R$ 20,00")
+console.log(dez, "nota(s) de R$ 10,00")
+console.log(cinco, "nota(s) de R$ 5,00")
+console.log(dois, "nota(s) de R$ 2,00")
+console.log(um, "nota(s) de R$ 1,00")
+
+// 1041 - Coordinates of a Point
+let line = lines[0].split(" ");
+let x = line[0];
+let y = line[1];
+
+let local = '';
+if (x == 0 && y == 0) {
+    local = "Origem"
+} else if (x == 0) {
+    local = "Eixo Y"
+} else if (y == 0) {
+    local = "Eixo X"
+} else if (x.includes('-') && y.includes('-')) {
+    local = "Q3";
+} else if (x.includes('-') && y != 0 && !y.includes('-')) {
+    local = "Q2"
+} else if (y.includes('-') && x != 0 && !x.includes('-')) {
+    local = "Q4"
+} else {
+    local = "Q1"
+}
+
+console.log(local)
+
+// 1042 - Simple Sort
+var line = lines[0].split(" ");
+var rec = JSON.parse(JSON.stringify(line));
+
+var asc = line.sort(function (a, b) { return a - b });
+
+for (let c = 0; c < asc.length; c++) {
+    console.log(asc[c])
+}
+
+console.log('')
+
+for (let y = 0; y < line.length; y++) {
+    console.log(rec[y])
+}
+
+// 1050 DDD
+let line = lines[0];
+
+var ddd = []
+ddd['61'] = "Brasilia"
+ddd['71'] = "Salvador"
+ddd['11'] = "Sao Paulo"
+ddd['21'] = "Rio de Janeiro"
+ddd['32'] = "Juiz de Fora"
+ddd['19'] = "Campinas"
+ddd['27'] = "Vitoria"
+ddd['31'] = "Belo Horizonte"
+
+console.log(ddd[line] ? ddd[line] : 'DDD nao cadastrado')
