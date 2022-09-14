@@ -139,3 +139,31 @@ ddd['27'] = "Vitoria"
 ddd['31'] = "Belo Horizonte"
 
 console.log(ddd[line] ? ddd[line] : 'DDD nao cadastrado')
+
+// 1051 - Taxes
+
+var sal = lines[0];
+sal = parseFloat(sal)
+var imp = 0;
+var isento = false;
+
+if (sal <= 2000) {
+    isento = true;
+} else if (sal <= 3000) {
+    imp = (sal - 2000) * 0.08;
+} else if (sal <= 4500) {
+    let calc1 = 1000 * 0.08
+    let calc2 = (sal - 3000) * 0.18
+    imp = calc1 + calc2;
+} else {
+    let calc1 = 1000 * 0.08
+    let calc2 = 1500 * 0.18
+    let calc3 = (sal - 4500) * 0.28
+    imp = calc1 + calc2 + calc3;
+}
+
+if (isento) {
+    console.log('Isento')
+} else {
+    console.log('R$', imp.toFixed(2))
+}
