@@ -167,3 +167,32 @@ if (isento) {
 } else {
     console.log('R$', imp.toFixed(2))
 }
+
+// 1066 evend odd ...
+
+
+var par = 0;
+var impar = 0;
+var pos = 0;
+var nega = 0;
+
+for (let i = 0; i < 5; i++) {
+    let num = parseInt(lines[i])
+    if(Math.abs(num)%2===0){
+        par++;
+    }
+    if(Math.abs(num)%2!==0){
+        impar++;
+    }
+    if(0<num){
+        pos++;
+    }
+    if(0>num){
+        nega++;
+    }
+}
+
+console.log(par, 'valor(es) par(es)')
+console.log(impar, 'valor(es) impar(es)')
+console.log(pos, 'valor(es) positivo(s)')
+console.log(nega, 'valor(es) negativo(s)')
