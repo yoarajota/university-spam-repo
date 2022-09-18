@@ -233,3 +233,23 @@ if (lines[0] == 'vertebrado') {
 for (let i = 1; i < 11; i++) {
     console.log(i, `x`, lines[0], `=`, i * parseInt(lines[0]))
 }
+
+// 1165 - Prime Number
+
+var n = lines[0]
+for (let i = 1; i < parseInt(n) + 1; i++) {
+    var y = lines[i]
+    
+    if (y == 1 || y == 2) console.log(y, 'eh primo')
+    
+    for (let x = 2; x < y; x++) {
+        if (y%x == 0) {
+            var val = 1
+            break;
+        } else {
+            var val = 2;
+        }
+        }
+    if (val == 1) console.log(y, 'nao eh primo')
+    if (val == 2) console.log(y, 'eh primo')
+}
