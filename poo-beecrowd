@@ -253,3 +253,58 @@ for (let i = 1; i < parseInt(n) + 1; i++) {
     if (val == 1) console.log(y, 'nao eh primo')
     if (val == 2) console.log(y, 'eh primo')
 }
+
+// 1172 - Array Replacement I
+for (let i = 0; i < lines.length; i++) {
+    if (lines[i] <= 0) lines[i] = 1;
+}
+for (let y = 0; y < lines.length; y++) {
+    console.log(`X [${y}] = ${lines[y]}`)
+}
+
+
+// 1173		Array fill I
+for (let i = 0; i < 11; i++) {
+    if (i == 0) {
+        lines[i] = parseInt(lines[i])
+    } else {
+        lines[i] = lines[i-1] * 2;
+    }
+}
+
+for (let y = 0; y < 11; y++) {
+    console.log(`N[${y}] = ${lines[y]}`)
+}
+
+
+// 1174 Array Selection I
+for (let y = 0; y < lines.length; y++) {
+    if (lines[y] <= 10) console.log(`A[${y}] = ${lines[y]}`)
+}
+
+// 1175 - Array change I
+for (let y = 0; y < lines.length; y++) {
+    console.log(`N[${y}] = ${lines[lines.length - 1 - y]}`)
+}
+
+
+// 1176 Fibonacci Array
+for (let y = 1; y < parseInt(lines[0]) + (1); y++) {
+   if (lines[y] - 1 < 0) {
+       console.log(`Fib(${lines[y]}) = 0`)
+   } else {
+       console.log(`Fib(${lines[y]}) = ${lines[y] - 1}`)
+    }
+}
+
+// 1177 - Array Fill II
+var val = lines[0]
+arr = []
+for (let y = 0; y < 1000; y++) {
+     if (arr[y - 1] !== undefined && (arr[y - 1] + 1) < val) {
+        arr[y] = arr[y-1] + 1
+    } else {
+        arr[y] = 0;
+    }
+    console.log(`N[${y}] = ${arr[y]}`)
+}
