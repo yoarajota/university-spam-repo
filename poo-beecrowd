@@ -375,3 +375,39 @@ if (lines[1] == 'S') {
     sum = sum/12
     console.log(parseInt(sum).toFixed(1))
 }
+
+
+// 1183	Above the Main Diagonal
+
+var s = true;
+var c = 0;
+var cut = 1;
+var sum = 0;
+while (s) {
+    var arr = []
+
+    for (let i = (12*c)+1; i < ((12*c)+1) + 12; i++) {
+        arr.push(lines[i])       
+    }
+
+    for (let i = 0; i <= cut; i++ ) {
+        arr.shift()
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+        sum += parseFloat(arr[i]).toFixed(1)
+    }
+
+    if (c === 11) {
+        s = false;
+    }
+
+    c++
+    cut++
+}
+
+if (lines[0] == 'S') {
+    console.log(sum)
+} else {
+    console.log(sum/60)
+}
