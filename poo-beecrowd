@@ -352,3 +352,26 @@ for (let x = 0; x < arrImpar.length; x++) {
 for (let x = 0; x < arrPar.length; x++) {
     console.log(`par[${x}] = ${arrPar[x]}`)
 }
+
+// 1180	Lowest Number and Position
+
+var arr = lines[1].split(" ")
+var normal = [...arr]
+var sorted = arr.sort((a, b) => a - b)
+
+console.log('Menor valor:', sorted[0])
+console.log('Posicao:', normal.indexOf(arr[0]))
+
+
+// 1181 - Line in Array
+var sum= 0;
+for (let i = lines[0] * 12 - 1; i <= (lines[0] * 12) + 12; i++) {
+        sum += parseInt(lines[i])
+}
+
+if (lines[1] == 'S') {
+    console.log(parseInt(sum).toFixed(1))
+} else {
+    sum = sum/12
+    console.log(parseInt(sum).toFixed(1))
+}
