@@ -322,3 +322,33 @@ for (let y = 0; y < 100; y++) {
     console.log(`N[${y}] = ${arr[y]}`)
 }
 
+
+// 1179 - Array Fill IV
+var arrImpar = []
+var arrPar = []
+for (let y = 0; y < 15; y++) {
+    if (lines[y] % 2 == 0) {
+        arrPar.push(lines[y])
+        if (arrPar.length + 1 > 5) {
+            for (let x = 0; x < arrPar.length; x++) {
+                console.log(`par[${x}] = ${arrPar[x]}`)
+            }
+            arrPar = []
+        }
+    } else {
+        arrImpar.push(lines[y])
+        if (arrImpar.length + 1 > 5) {
+            for (let x = 0; x < arrImpar.length; x++) {
+                console.log(`impar[${x}] = ${arrImpar[x]}`)
+            }
+            arrImpar = []
+        }
+    }
+}
+
+for (let x = 0; x < arrImpar.length; x++) {
+    console.log(`impar[${x}] = ${arrImpar[x]}`)
+}
+for (let x = 0; x < arrPar.length; x++) {
+    console.log(`par[${x}] = ${arrPar[x]}`)
+}
