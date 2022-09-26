@@ -421,3 +421,46 @@ if (ehSoma) {
     nmbr = parseFloat(nmbr).toFixed(1)
     console.log(nmbr)
 }
+
+// 1185 Above the Secundary Diagonal
+
+var s = true;
+var c = 0;
+var cut = 1;
+var sum = 0;
+var ehSoma = lines[0] == 'S'
+lines.shift()
+while (s) {
+    var arr = []
+    for (let i = 12*c; i < (12*c) + 12; i++) {
+        let nmbr = lines[i]
+        arr.push(nmbr)       
+    }
+
+    for (let i = 0; i < cut; i++) {
+        arr.pop()
+    }
+    
+    for (let i = 0; i < arr.length; i++) {
+        let nmbr2 = parseFloat(arr[i])        
+        sum += nmbr2
+    }
+
+    if (c === 11) {
+        s = false;
+    }
+
+    c++
+    cut++
+}
+
+
+if (ehSoma) {
+    nmbr = parseFloat(sum).toFixed(1)
+    console.log(nmbr)
+} else {
+    nmbr = parseFloat(sum)
+    nmbr = nmbr/66.0
+    nmbr = parseFloat(nmbr).toFixed(1)
+    console.log(nmbr)
+}
