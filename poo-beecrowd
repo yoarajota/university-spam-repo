@@ -378,24 +378,29 @@ if (lines[1] == 'S') {
 
 
 // 1183	Above the Main Diagonal
+var input = require('fs').readFileSync('/dev/stdin', 'utf8');
+var lines = input.split('\n');
 
 var s = true;
 var c = 0;
 var cut = 1;
 var sum = 0;
+var ehSoma = lines[0] == 'S'
+lines.shift()
 while (s) {
     var arr = []
-
-    for (let i = (12*c)+1; i < ((12*c)+1) + 12; i++) {
-        arr.push(lines[i])       
+    for (let i = 12*c; i < (12*c) + 12; i++) {
+        let nmbr = lines[i]
+        arr.push(nmbr)       
     }
 
-    for (let i = 0; i <= cut; i++ ) {
+    for (let i = 0; i < cut; i++) {
         arr.shift()
     }
-
+    
     for (let i = 0; i < arr.length; i++) {
-        sum += parseFloat(arr[i]).toFixed(1)
+        let nmbr2 = parseFloat(arr[i])        
+        sum += nmbr2
     }
 
     if (c === 11) {
@@ -406,8 +411,13 @@ while (s) {
     cut++
 }
 
-if (lines[0] == 'S') {
-    console.log(sum)
+
+if (ehSoma) {
+    nmbr = parseFloat(sum).toFixed(1)
+    console.log(nmbr)
 } else {
-    console.log(sum/60)
+    nmbr = parseFloat(sum)
+    nmbr = nmbr/66.0
+    nmbr = parseFloat(nmbr).toFixed(1)
+    console.log(nmbr)
 }
