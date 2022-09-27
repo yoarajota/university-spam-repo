@@ -365,7 +365,7 @@ console.log('Posicao:', normal.indexOf(arr[0]))
 
 // 1181 - Line in Array
 var sum= 0;
-for (let i = lines[0] * 12 - 1; i <= (lines[0] * 12) + 12; i++) {
+for (let i = lines[0] * 12 + 2; i <= (lines[0] * 12) + 13; i++) {
         sum += parseInt(lines[i])
 }
 
