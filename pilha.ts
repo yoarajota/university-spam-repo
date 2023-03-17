@@ -1,17 +1,17 @@
 export default class Pilha {
-    private elementos: Array<string|number>;
+    private elementos: Array;
     private tamanho: number;
 
     public constructor(t: number) {
         this.tamanho = t;
-        let arr: Array<string> = [];
+        let arr: Array = [];
         for (let i = t; i !== 0; i--) {
             arr.push('')
         }
         this.elementos = arr;
     }
 
-    public empilhar(elemento: string|number): void {
+    public empilhar(elemento: string | number): void {
         for (let index in this.elementos) {
             if (this.elementos[index] === "") {
                 this.elementos[index] = elemento;
@@ -41,7 +41,7 @@ export default class Pilha {
                 reverse[index] = '';
             }
         }
-        
+
         reverse.reverse()
         this.elementos = reverse
         return r
@@ -63,6 +63,31 @@ export default class Pilha {
     public toString(): string {
         let filter = this.elementos.filter((i) => i !== "")
         return filter.join(", ")
+    }
+
+    public pegaPorPosicao(posicao: number): string | number {
+        return this.elementos[posicao]
+    }
+
+    public somaTudo(): number {
+        function add(accumulator: number | string, a: number | string) {
+            if (typeof accumulator === 'string') {
+                accumulator = parseInt(accumulator)
+            }
+
+            if (typeof a === 'string') {
+                a = parseInt(a)
+            }
+
+            return accumulator + a;
+        }
+
+        let soma = this.elementos.reduce(add, 0);
+        if (typeof soma === 'string') {
+            soma = parseInt(soma)
+        }
+
+        return soma;
     }
 }
 
@@ -99,7 +124,7 @@ class TestaPilha {
 }
 
 class OddOrEvens {
-    main(arr:Array<number>) {
+    main(arr: Array) {
         if (arr.length !== 10) {
             console.error("Necessário 10 itens.")
         }
@@ -107,11 +132,11 @@ class OddOrEvens {
         const P = new Pilha(10)
 
         for (let i of arr) {
-            if (i%2 === 0) {
+            if (i % 2 === 0) {
                 P.empilhar(i)
             } else {
                 P.desempilhar()
-                if(P.estaVazia()) {
+                if (P.estaVazia()) {
                     console.log("A pilha foi esvaziada!")
                 }
             }
@@ -125,5 +150,60 @@ class OddOrEvens {
     }
 }
 
-new TestaPilha().main()
-new OddOrEvens().main([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+class JogoPilha {
+    main() {
+        let p1 = new Pilha(3)
+        let p2 = new Pilha(3)
+        let p3 = new Pilha(3)
+        for (let pilha of [p1, p2, p3]) {
+            let random = [Math.floor(Math.random() * 9), Math.floor(Math.random() * 9), Math.floor(Math.random() * 9)]
+            for (let number of random) {
+                pilha.empilhar(number)
+            }
+        }
+        let pontos = [0, 0, 0]
+        let empatou = false;
+        for (let i = 0; i < 3; i++) {
+            let a = p1.pegaPorPosicao(i)
+            let b = p2.pegaPorPosicao(i)
+            let c = p3.pegaPorPosicao(i)
+            if ((a === b) && (b === c) && (a === c)) {
+                empatou = true;
+            } else if (a >= b && a >= c) {
+                pontos[0] += p1.somaTudo();
+                if (empatou) {
+                    pontos[0] += p1.somaTudo();
+                }
+                empatou = false;
+            }
+            else if (b >= a && b >= c) {
+                pontos[1] += p2.somaTudo();
+                if (empatou) {
+                    pontos[1] += p2.somaTudo();
+                }
+                empatou = false;
+            }
+            else {
+                pontos[2] += p2.somaTudo();
+                if (empatou) {
+                    pontos[2] += p2.somaTudo();
+                }
+                empatou = false;
+            }
+        }
+
+        if (pontos[0] >= pontos[1] && pontos[0] >= pontos[2]) {
+            console.log("1 GANHOU")
+        }
+        else if (pontos[1] >= pontos[0] && pontos[1] >= pontos[2]) {
+            console.log("2 GANHOU")
+        }
+        else {
+            console.log("3 GANHOU")
+        }
+    }
+}
+
+new TestaPilha().main();
+new OddOrEvens().main([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+new JogoPilha().main();
