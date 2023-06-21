@@ -21,10 +21,10 @@ class PontoVenda {
 }
 
 class Itinerario {
-  pontosVenda: PontoVenda[];
+  pontoAtual: PontoVenda | null;
 
   constructor() {
-    this.pontosVenda = [];
+    this.pontoAtual = null;
   }
 
   adicionarPontoVenda(local: string, distancia: number, tempoViagem: number) {
@@ -35,22 +35,22 @@ class Itinerario {
       distancia,
       tempoViagem
     );
-    const ultimoPontoVenda = this.pontosVenda[this.pontosVenda.length - 1];
-
-    if (ultimoPontoVenda) {
-      novoPontoVenda.pontoAnterior = ultimoPontoVenda;
-      ultimoPontoVenda.pontoPosterior = novoPontoVenda;
+    if (this.pontoAtual) {
+      novoPontoVenda.pontoAnterior = this.pontoAtual;
+      this.pontoAtual.pontoPosterior = novoPontoVenda;
     }
 
-    this.pontosVenda.push(novoPontoVenda);
+    this.pontoAtual = novoPontoVenda;
+  }
+
+  getRecursive(atribute: string) {
+    getRecursive
   }
 
   calcularDistanciaTotal() {
     let distanciaTotal = 0;
 
-    for (const pontoVenda of this.pontosVenda) {
-      distanciaTotal += pontoVenda.distancia;
-    }
+    let iteration = this.getRecursive()
 
     return distanciaTotal;
   }
@@ -58,8 +58,10 @@ class Itinerario {
   calcularTempoTotal() {
     let tempoTotal = 0;
 
-    for (const pontoVenda of this.pontosVenda) {
-      tempoTotal += pontoVenda.tempoViagem;
+    let iteration = { ...this.pontoAtual };
+    while (!!iteration) {
+      tempoTotal += iteration.distancia ?? 0;
+      iteration = { ...iteration.pontoAnterior };
     }
 
     return tempoTotal;
@@ -72,8 +74,9 @@ itinerario.adicionarPontoVenda("Local B", 15, 45);
 itinerario.adicionarPontoVenda("Local C", 20, 60);
 itinerario.adicionarPontoVenda("Local D", 12, 35);
 itinerario.adicionarPontoVenda("Local E", 18, 50);
-const distanciaTotal = itinerario.calcularDistanciaTotal();
-const tempoTotal = itinerario.calcularTempoTotal();
 
-console.log("Distância total percorrida:", distanciaTotal);
-console.log("Tempo total gasto:", tempoTotal);
+const distanciaTotal = itinerario.calcularDistanciaTotal();
+// const tempoTotal = itinerario.calcularTempoTotal();
+
+// console.log("Distância total percorrida:", distanciaTotal);
+// console.log("Tempo total gasto:", tempoTotal);
