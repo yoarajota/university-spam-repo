@@ -44,27 +44,38 @@ class Itinerario {
   }
 
   getRecursive(atribute: string) {
-    getRecursive
   }
 
   calcularDistanciaTotal() {
-    let distanciaTotal = 0;
+    if (this.pontoAtual) {
+      let distancia = 0;
 
-    let iteration = this.getRecursive()
+      let current: PontoVenda | undefined = this.pontoAtual;
+      while (current) {
+        distancia += current.distancia;
+        current = current.pontoAnterior
+      }
 
-    return distanciaTotal;
+      return distancia;
+    } else {
+      return 0;
+    }
   }
 
   calcularTempoTotal() {
-    let tempoTotal = 0;
+    if (this.pontoAtual) {
+      let tempoViagem = 0;
 
-    let iteration = { ...this.pontoAtual };
-    while (!!iteration) {
-      tempoTotal += iteration.distancia ?? 0;
-      iteration = { ...iteration.pontoAnterior };
+      let current: PontoVenda | undefined = this.pontoAtual;
+      while (current) {
+        tempoViagem += current.tempoViagem;
+        current = current.pontoAnterior
+      }
+
+      return tempoViagem;
+    } else {
+      return 0;
     }
-
-    return tempoTotal;
   }
 }
 
@@ -76,7 +87,7 @@ itinerario.adicionarPontoVenda("Local D", 12, 35);
 itinerario.adicionarPontoVenda("Local E", 18, 50);
 
 const distanciaTotal = itinerario.calcularDistanciaTotal();
-// const tempoTotal = itinerario.calcularTempoTotal();
+const tempoTotal = itinerario.calcularTempoTotal();
 
-// console.log("Distância total percorrida:", distanciaTotal);
-// console.log("Tempo total gasto:", tempoTotal);
+console.log("Distância total percorrida:", distanciaTotal);
+console.log("Tempo total gasto:", tempoTotal);
