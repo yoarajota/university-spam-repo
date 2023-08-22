@@ -1,4 +1,8 @@
 <?php
+   // php -S localhost:8000
+
+
+
     // $request = $_SERVER['REQUEST_URI'];
     // $viewDir = '/views/';
     
