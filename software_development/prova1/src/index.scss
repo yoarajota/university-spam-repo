@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&family=Roboto+Slab:wght@300;400;600&display=swap');
+
+:root {
+    --color-1: #BF656D;
+    --color-2: #F2F2F2;
+    --color-3: #1E3340;
+    --color-4: #395D73;
+    --color-5: #F29544;
+
+}
+
+* {
+    color: var(--color-2);
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+main {
+    background-color: var(--color-3);
+}
+
+body {
+    max-width: 100vw;
+    position: relative;
+    min-height: 100vh;
+}
