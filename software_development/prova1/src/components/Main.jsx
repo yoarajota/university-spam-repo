@@ -7,7 +7,7 @@ const Main = () => {
     return <Box as="main" display="flex" alignItems="center" justifyContent="center" flexDirection="column">
         <BrowserRouter>
             <Routes>
-                <Route path="/book/:id" element={<BookForm />} />
+                <Route path="/book/:id?" element={<BookForm />} />
                 <Route index path="*" element={<BooksTable />} />
             </Routes>
         </BrowserRouter>
