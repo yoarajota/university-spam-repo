@@ -1,4 +1,5 @@
 import {
+    Box,
   Table,
   TableContainer,
   Tbody,
@@ -35,35 +36,37 @@ const BooksTable = () => {
   }, [id]);
 
   return (
-    <TableContainer w="80%" maxWidth="30%">
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            {columns.map((col) => (
-              <Th color="var(--color-2)" key={col}>
-                {translate[col]}
-              </Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {!_.isEmpty(data) &&
-            data?.map?.((tr, k) => (
-              <Tr
-                key={tr + k}
-                onClick={() => {
-                  setCurrentPage(tr);
-                  navigate("/book/" + tr.id);
-                }}
-              >
-                {Object.values(_.pickBy(tr, handlePickBy)).map((td, k) => (
-                  <Td key={td + k}>{td}</Td>
-                ))}
-              </Tr>
-            ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+    <Box display='flex' flexDirection="column" w="50%">
+      <TableContainer>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              {columns.map((col) => (
+                <Th color="var(--color-2)" key={col}>
+                  {translate[col]}
+                </Th>
+              ))}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {!_.isEmpty(data) &&
+              data?.map?.((tr, k) => (
+                <Tr
+                  key={tr + k}
+                  onClick={() => {
+                    setCurrentPage(tr);
+                    navigate("/book/" + tr.id);
+                  }}
+                >
+                  {Object.values(_.pickBy(tr, handlePickBy)).map((td, k) => (
+                    <Td key={td + k}>{td}</Td>
+                  ))}
+                </Tr>
+              ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
 

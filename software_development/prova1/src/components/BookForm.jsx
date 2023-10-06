@@ -1,4 +1,4 @@
-import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
+import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import {
   Fragment,
   useCallback,
@@ -6,7 +6,7 @@ import {
   useEffect,
   useReducer,
 } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { BooksContext } from "../contexts/BooksContext";
 
 const BookForm = () => {
@@ -33,30 +33,24 @@ const BookForm = () => {
   }, [id, send, state]);
 
   return (
-    <Box>
-      <Link to="/">Voltar</Link>
-
-      {id}
-
-      <Stack spacing={3} w="25vw">
-        {book.map((input) => (
-          <Fragment key={input.name}>
-            <Text w="100%" textAlign="center">
-              {input.name}
-            </Text>
-            <Input
-              type={input.type}
-              placeholder={input.name}
-              size="md"
-              value={state?.[input.name] ?? ""}
-              onChange={(e) => setState({ [input.name]: e.target.value })}
-              disabled={input?.disabled}
-            />
-          </Fragment>
-        ))}
-        <Button onClick={handle}>Enviar</Button>
-      </Stack>
-    </Box>
+    <Stack spacing={3} w="25vw">
+      {book.map((input) => (
+        <Fragment key={input.name}>
+          <Text w="100%" textAlign="center">
+            {input.name}
+          </Text>
+          <Input
+            type={input.type}
+            placeholder={input.name}
+            size="md"
+            value={state?.[input.name] ?? ""}
+            onChange={(e) => setState({ [input.name]: e.target.value })}
+            disabled={input?.disabled}
+          />
+        </Fragment>
+      ))}
+      <Button onClick={handle}>Enviar</Button>
+    </Stack>
   );
 };
 
