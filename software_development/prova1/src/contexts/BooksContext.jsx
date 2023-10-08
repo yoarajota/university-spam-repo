@@ -36,12 +36,27 @@ const BooksProvider = ({ children }) => {
     reduc({ currentPage: id });
   };
 
-  const send = useCallback(
-    (state, id) => {
-      const message = id ? "Inserido com sucesso!" : "Alterado com sucesso!";
+  const mountFunc = useCallback((id) => {
+    if (id) {
+      return {
+        message: "Alterado com sucesso!",
+        method: "put",
+        route: `/api/v1/Books/${id}`,
+      };
+    } else {
+      return {
+        message: "Inserido com sucesso!",
+        method: "post",
+        route: `/api/v1/Books`,
+      };
+    }
+  }, []);
 
-      api
-        .post("/api/v1/Books", state)
+  const send = useCallback(
+    async (state, id, afterFunction) => {
+      const { message, method, route } = mountFunc(id);
+
+      await api[method](route, state)
         .then(() => {
           toast({
             description: message,
@@ -56,8 +71,10 @@ const BooksProvider = ({ children }) => {
             status: "error",
           });
         });
+
+      afterFunction();
     },
-    [toast]
+    [mountFunc, toast]
   );
 
   return (

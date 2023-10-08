@@ -1,5 +1,6 @@
 import {
-    Box,
+  Box,
+  Button,
   Table,
   TableContainer,
   Tbody,
@@ -11,7 +12,7 @@ import {
 import _ from "lodash";
 import { useContext, useEffect } from "react";
 import { BooksContext } from "../contexts/BooksContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const columns = ["id", "title"];
 
@@ -36,7 +37,16 @@ const BooksTable = () => {
   }, [id]);
 
   return (
-    <Box display='flex' flexDirection="column" w="50%">
+    <Box display="flex" flexDirection="column" w="50%">
+      <Link
+        to="/book"
+        onClick={() => {
+          setCurrentPage(null);
+        }}
+      >
+        <Button>Formulário</Button>
+      </Link>
+
       <TableContainer>
         <Table variant="simple">
           <Thead>
