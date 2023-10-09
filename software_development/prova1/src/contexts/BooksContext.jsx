@@ -36,6 +36,20 @@ const BooksProvider = ({ children }) => {
     reduc({ currentPage: id });
   };
 
+  const del = useCallback(
+    (id) => {
+      api.delete(`/api/v1/Books/${id}`).then(() => {
+        reduc({ data: data.filter((book) => book.id !== id) });
+        toast({
+          description: "Excluído com sucesso!",
+          position: "top-right",
+          status: "success",
+        });
+      });
+    },
+    [data]
+  );
+
   const mountFunc = useCallback((id) => {
     if (id) {
       return {
@@ -79,7 +93,7 @@ const BooksProvider = ({ children }) => {
 
   return (
     <BooksContext.Provider
-      value={{ data, setCurrentPage, currentPage, book, all, onlyOne, send }}
+      value={{ data, setCurrentPage, currentPage, book, all, onlyOne, send, del }}
     >
       {children}
     </BooksContext.Provider>
