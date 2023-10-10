@@ -9,9 +9,9 @@ const BooksContext = createContext("books");
 const book = [
   { name: "id", type: "number", disabled: true, description: "Identificador" },
   { name: "title", type: "string", description: "Título" },
-  { name: "description", type: "textarea", description: "Descrição", validations: [{ type: "min_char", value: 60 }] },
-  { name: "pageCount", type: "number", description: "Contagem de Páginas", validations: [{ type: "min", value: 15 }, { type: "not_null", value: 1 }] },
-  { name: "excerpt", type: "textarea", description: "Excerto", validations: [{ type: "max_char", value: 225 }] },
+  { name: "description", type: "textarea", description: "Descrição", validations: [{ type: "min_char", value: 30 }] },
+  { name: "pageCount", type: "number", description: "Contagem de Páginas", validations: [{ type: "min", value: 10 }, { type: "not_null", value: 1 }] },
+  { name: "excerpt", type: "textarea", description: "Excerto", validations: [{ type: "max_char", value: 425 }] },
   { name: "publishDate", type: "date", description: "Data de Publicação", validations: [{ type: "not_null", value: 1 }] },
 ];
 
@@ -89,7 +89,7 @@ const BooksProvider = ({ children }) => {
               }
               break;
             case "not_null":
-              if (validation.value && !state[key]?.length) {
+              if (validation.value && !state[key]) {
                 throw Error(`${description} é obrigatório!`)
               }
               break;
@@ -103,25 +103,27 @@ const BooksProvider = ({ children }) => {
 
   const send = useCallback(
     async (state, id, afterFunction) => {
-      try {
+      let status = "error";
 
+      try {
         validate(state);
 
         const { message, method, route } = mountFunc(id);
 
         await api[method](route, state)
           .then(() => {
-            t("success", message);
+            status = "success";
+            t(status, message);
           })
           .catch(() => {
-            t("error", "Erro ao salvar!");
+            t(status, "Erro ao salvar!");
           });
       }
       catch (error) {
-        t("error", error.message);
+        t(status, error.message);
       }
 
-      afterFunction();
+      afterFunction(status);
     },
     [mountFunc, t]
   );

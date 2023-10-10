@@ -8,7 +8,7 @@ import {
   useReducer,
   useState,
 } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BooksContext } from "../contexts/BooksContext";
 import { fromISO8601toYYYYMMDD, isISO8601String } from "../helpers";
 
@@ -24,8 +24,9 @@ const BookForm = () => {
       return obj;
     }, {})
   );
-
+  const navigate = useNavigate();
   const { id } = useParams();
+
   useEffect(() => {
     async function boot() {
       if (!currentPage && id) {
@@ -39,8 +40,12 @@ const BookForm = () => {
 
   const handle = useCallback(async () => {
     setIsLoading(true);
-    send(state, id, () => {
+    send(state, id, (status) => {
       setIsLoading(false);
+
+      if (!id && status === "success") {
+        navigate("/");
+      }
     });
   }, [id, send, state]);
 
