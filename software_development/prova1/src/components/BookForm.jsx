@@ -1,4 +1,5 @@
-import { Button, Input, Stack, Text } from "@chakra-ui/react";
+import { Button, Input, Stack, Text, Textarea } from "@chakra-ui/react";
+import _ from "lodash";
 import {
   Fragment,
   useCallback,
@@ -16,7 +17,12 @@ const BookForm = () => {
   const [isLoading, setIsLoading] = useState();
   const [state, setState] = useReducer(
     (prev, data) => ({ ...prev, ...data }),
-    currentPage
+    currentPage ?? book.reduce((obj, item) => {
+      if (!item.disabled) {
+        obj[item.name] = null;
+      }
+      return obj;
+    }, {})
   );
 
   const { id } = useParams();
@@ -58,16 +64,25 @@ const BookForm = () => {
       {book.map((input) => (
         <Fragment key={input.name}>
           <Text w="100%" textAlign="center">
-            {input.name}
+            {input.description}
           </Text>
-          <Input
-            type={input.type}
-            placeholder={input.name}
-            size="md"
-            value={getValueToInput(input)}
-            onChange={(e) => setState({ [input.name]: e.target.value })}
-            disabled={input?.disabled}
-          />
+          {input.type === "textarea" ?
+            <Textarea
+              placeholder={input.description}
+              size="md"
+              value={getValueToInput(input)}
+              onChange={(e) => setState({ [input.name]: e.target.value })}
+              isDisabled={input?.disabled}
+            /> :
+            <Input
+              size="md"
+              type={input.type}
+              placeholder={input.description}
+              value={getValueToInput(input)}
+              onChange={(e) => setState({ [input.name]: e.target.value })}
+              disabled={input?.disabled}
+            />
+          }
         </Fragment>
       ))}
       <Button isLoading={isLoading} onClick={handle}>

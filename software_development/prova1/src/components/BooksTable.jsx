@@ -3,6 +3,7 @@ import _ from "lodash";
 import { useCallback, useContext, useEffect } from "react";
 import { BooksContext } from "../contexts/BooksContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 
 const columns = ["id", "title"];
 
@@ -14,6 +15,7 @@ const BooksTable = () => {
   const { data, setCurrentPage, all, del } = useContext(BooksContext);
   const navigate = useNavigate();
   const { id } = useParams();
+  const [deleting, setDeleting] = useState([])
 
   useEffect(() => {
     if (_.isEmpty(data)) {
@@ -22,9 +24,10 @@ const BooksTable = () => {
   }, [id]);
 
   const handleDelete = useCallback(
-    (e, id) => {
+    async (e, id, callback) => {
       e.stopPropagation();
-      del(id);
+      await del(id);
+      callback()
     },
     [del]
   );
@@ -39,7 +42,7 @@ const BooksTable = () => {
             setCurrentPage(null);
           }}
         >
-          <Button>Formulário</Button>
+          <Button backgroundColor="var(--color-2)">Formulário</Button>
         </Link>
       </Box>
       <Grid gap={4} templateColumns="repeat(5, 1fr)">
@@ -50,12 +53,13 @@ const BooksTable = () => {
               borderRadius="9px"
               zIndex={1}
               key={tr + k}
-              templateColumns={`repeat(${
-                columns.length ? columns.length + 1 : 3
-              }, 1fr)`}
+              templateColumns={`repeat(${columns.length ? columns.length + 1 : 3
+                }, 1fr)`}
+              alignItems="center"
             >
               {Object.values(_.pickBy(tr, handlePickBy)).map((td, k) => (
                 <GridItem
+                  minH="50px"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -65,18 +69,38 @@ const BooksTable = () => {
                   {td}
                 </GridItem>
               ))}
-              <GridItem w="100%" zIndex={2}>
+              <GridItem
+                w="100%"
+                minH="50px"
+                zIndex={2} alignItems="center" display="flex" justifyContent="center">
                 <Button
+                  isLoading={deleting.includes(tr.id)}
                   border="none"
                   variant="outline"
                   onClick={(e) => {
-                    handleDelete(e, tr.id);
+                    setDeleting((prev) => {
+                      let clone = _.clone(prev);
+                      clone.push(tr.id)
+                      return clone;
+                    })
+                    handleDelete(e, tr.id, () => {
+                      setTimeout(() => {
+                        setDeleting((prev) => {
+                          let clone = _.clone(prev);
+                          return clone.filter((i) => i !== tr.id);
+                        })
+                      }, 100)
+                    });
                   }}
-                  padding="0.3em 0.8em"
+                  p="0"
+                  minW="20px"
+                  h="20px"
                 >
-                  <span className="material-symbols-outlined button">
-                    delete
-                  </span>
+                  {!deleting.includes(tr.id) &&
+                    <span className="material-symbols-outlined button">
+                      delete
+                    </span>
+                  }
                 </Button>
                 <Button
                   border="none"
@@ -85,7 +109,9 @@ const BooksTable = () => {
                     setCurrentPage(tr);
                     navigate("/book/" + tr.id);
                   }}
-                  padding="0.3em 0.8em"
+                  p="0"
+                  minW="20px"
+                  h="20px"
                 >
                   <span className="material-symbols-outlined button">edit</span>
                 </Button>

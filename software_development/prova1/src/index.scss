@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&family=Roboto+Slab:wght@300;400;600&display=swap');
 
 :root {
-    --color-1: #BF656D;
-    --color-2: #F2F2F2;
-    --color-3: #1E3340;
+    --color-1: #67151B;
+    --color-2: #FDFBFF;
+    --color-3: #161A1E;
     --color-4: #395D73;
-    --color-5: #F29544;
+    --color-5: #E3D3C4;
 
 }
 
 * {
     color: var(--color-2);
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 body,
@@ -28,4 +29,16 @@ body,
 
 .button {
     font-size: 1.2rem;
+    transition: 0.3s;
+    width: 20px;
 }
+
+button:hover {
+    .button {
+        color: var(--color-3);
+    }
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
