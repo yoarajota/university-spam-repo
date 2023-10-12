@@ -20,13 +20,15 @@ const BooksProvider = ({ children }) => {
   const toast = useToast();
   const t = useFastToast(toast);
 
-  const [{ currentPage, data }, reduc] = useReducer(
+  const [{ currentPage, data, fetchingAll }, reduc] = useReducer(
     (prev, data) => ({ ...prev, ...data }),
-    { currentPage: null, data: [] }
+    { currentPage: null, data: [], fetchingAll: true }
   );
 
   const all = useCallback(() => {
-    api.get("/api/v1/Books").then((res) => reduc({ data: res.data }));
+    api
+      .get("/api/v1/Books")
+      .then((res) => reduc({ data: res.data, fetchingAll: false }));
   }, []);
 
   const onlyOne = useCallback((id) => {
@@ -130,7 +132,7 @@ const BooksProvider = ({ children }) => {
 
   return (
     <BooksContext.Provider
-      value={{ data, setCurrentPage, currentPage, book, all, onlyOne, send, del }}
+      value={{ data, setCurrentPage, currentPage, book, all, onlyOne, send, del, fetchingAll }}
     >
       {children}
     </BooksContext.Provider>
