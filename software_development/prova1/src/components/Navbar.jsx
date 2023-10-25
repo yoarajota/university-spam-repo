@@ -1,12 +1,15 @@
 import { Box } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation()
+
   return (
-    <Box as="navbar">
-      <button onClick={() => navigate(-1)}>Go back</button>
-      <Link to="/book">Form</Link>
+    <Box as="nav" padding="10px 7px" h="2em" display="flex" gap="1em">
+      {location.pathname !== "/" &&
+        <button onClick={() => navigate(-1)}>Voltar</button>
+      }
     </Box>
   );
 };
