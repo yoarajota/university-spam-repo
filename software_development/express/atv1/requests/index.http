@@ -1,0 +1,27 @@
+@baseurl = http://localhost:3000
+
+
+### Todos
+GET {{baseurl}}
+
+### Curso específico
+GET {{baseurl}}/courses/ddd9c637-7bef-416c-b4d1-91d291fbc1c2
+
+### Cria
+POST {{baseurl}}/courses
+Content-Type: application/json
+{
+"name": "Logística",
+"type": "Superior"
+}
+
+### Altera
+PUT {{baseurl}}/courses/66e9aa36-eac0-4667-b0ba-324a4d39cdc9
+Content-Type: application/json
+{
+"name": "Curso de ADS",
+"type": "Superior"
+}
+
+### Exclui
+DELETE {{baseurl}}/courses/66e9aa36-eac0-4667-b0ba-324a4d39cdc9
