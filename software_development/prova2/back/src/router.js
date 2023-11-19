@@ -1,18 +1,11 @@
 const def = "/api/v1/";
 
-const defaultResponse = (res) => {
-  // Set cors headers
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, DELETE"
-  );
-
-  return res;
-};
+import BookController from "./controllers/book.js";
 
 export default function router(app) {
-  app.get(def + "Books", (req, res) => {
-    return defaultResponse(res).json([]);
-  });
+  app.get(def + "Books", BookController.index);
+  app.post(def + "Books", BookController.create);
+  app.get(def + "Books/:id", BookController.show);
+  app.delete(def + "Books/:id", BookController.del);
+  app.put(def + "Books/:id", BookController.edit);
 }

@@ -16,13 +16,15 @@ const BookForm = () => {
   const [isLoading, setIsLoading] = useState();
   const [state, setState] = useReducer(
     (prev, data) => ({ ...prev, ...data }),
-    currentPage ?? book.reduce((obj, item) => {
-      if (!item.disabled) {
-        obj[item.name] = null;
-      }
-      return obj;
-    }, {})
+    currentPage ??
+      book.reduce((obj, item) => {
+        if (!item.disabled) {
+          obj[item.name] = null;
+        }
+        return obj;
+      }, {})
   );
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -70,14 +72,15 @@ const BookForm = () => {
           <Text w="100%" textAlign="center">
             {input.description}
           </Text>
-          {input.type === "textarea" ?
+          {input.type === "textarea" ? (
             <Textarea
               placeholder={input.description}
               size="md"
               value={getValueToInput(input)}
               onChange={(e) => setState({ [input.name]: e.target.value })}
               isDisabled={input?.disabled}
-            /> :
+            />
+          ) : (
             <Input
               size="md"
               type={input.type}
@@ -86,7 +89,7 @@ const BookForm = () => {
               onChange={(e) => setState({ [input.name]: e.target.value })}
               disabled={input?.disabled}
             />
-          }
+          )}
         </Fragment>
       ))}
       <Button isLoading={isLoading} onClick={handle}>

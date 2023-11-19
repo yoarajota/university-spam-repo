@@ -21,8 +21,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { fromISO8601toYYYYMMDD, isISO8601String } from "../helpers";
 
-const columns = ["id", "title"];
-const columnsToQuery = ["id", "title"];
+const columns = ["title"];
+const columnsToQuery = ["title"];
 
 function handlePickBy(_, key) {
   return columns.indexOf(key) != -1;
@@ -122,7 +122,8 @@ const BooksTable = () => {
               templateColumns={`repeat(${
                 columns.length ? columns.length + 1 : 3
               }, 1fr)`}
-              alignItems="center"
+              justifyContent='flex-start'
+              padding="0 7px"
               onClick={() => {
                 setModalData(tr);
                 onOpen();
@@ -149,21 +150,21 @@ const BooksTable = () => {
                 justifyContent="center"
               >
                 <Button
-                  isLoading={deleting.includes(tr.id)}
+                  isLoading={deleting.includes(tr._id)}
                   border="none"
                   variant="outline"
                   onClick={(e) => {
                     e.stopPropagation();
                     setDeleting((prev) => {
                       let clone = _.clone(prev);
-                      clone.push(tr.id);
+                      clone.push(tr._id);
                       return clone;
                     });
-                    handleDelete(e, tr.id, () => {
+                    handleDelete(e, tr._id, () => {
                       setTimeout(() => {
                         setDeleting((prev) => {
                           let clone = _.clone(prev);
-                          return clone.filter((i) => i !== tr.id);
+                          return clone.filter((i) => i !== tr._id);
                         });
                       }, 100);
                     });
@@ -172,7 +173,7 @@ const BooksTable = () => {
                   minW="20px"
                   h="20px"
                 >
-                  {!deleting.includes(tr.id) && (
+                  {!deleting.includes(tr._id) && (
                     <span className="material-symbols-outlined button">
                       delete
                     </span>
@@ -184,7 +185,7 @@ const BooksTable = () => {
                   onClick={(e) => {
                     e.stopPropagation();
                     setCurrentPage(tr);
-                    navigate("/book/" + tr.id);
+                    navigate("/book/" + tr._id);
                   }}
                   p="0"
                   minW="20px"

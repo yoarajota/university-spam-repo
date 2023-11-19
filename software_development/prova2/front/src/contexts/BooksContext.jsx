@@ -7,12 +7,35 @@ import { useToast } from "@chakra-ui/react";
 const BooksContext = createContext("books");
 
 const book = [
-  { name: "id", type: "number", disabled: true, description: "Identificador" },
+  { name: "_id", type: "text", disabled: true, description: "Identificador" },
   { name: "title", type: "string", description: "Título" },
-  { name: "description", type: "textarea", description: "Descrição", validations: [{ type: "min_char", value: 30 }] },
-  { name: "pageCount", type: "number", description: "Contagem de Páginas", validations: [{ type: "min", value: 10 }, { type: "not_null", value: 1 }] },
-  { name: "excerpt", type: "textarea", description: "Excerto", validations: [{ type: "max_char", value: 425 }] },
-  { name: "publishDate", type: "date", description: "Data de Publicação", validations: [{ type: "not_null", value: 1 }] },
+  {
+    name: "description",
+    type: "textarea",
+    description: "Descrição",
+    validations: [{ type: "min_char", value: 30 }],
+  },
+  {
+    name: "pageCount",
+    type: "number",
+    description: "Contagem de Páginas",
+    validations: [
+      { type: "min", value: 10 },
+      { type: "not_null", value: 1 },
+    ],
+  },
+  {
+    name: "excerpt",
+    type: "textarea",
+    description: "Excerto",
+    validations: [{ type: "max_char", value: 425 }],
+  },
+  {
+    name: "publishDate",
+    type: "date",
+    description: "Data de Publicação",
+    validations: [{ type: "not_null", value: 1 }],
+  },
 ];
 
 /* eslint-disable react/prop-types */
@@ -45,7 +68,7 @@ const BooksProvider = ({ children }) => {
   const del = useCallback(
     (id) => {
       api.delete(`/api/v1/Books/${id}`).then(() => {
-        reduc({ data: data.filter((book) => book.id !== id) });
+        reduc({ data: data.filter((book) => book._id !== id) });
         t("success", "Excluído com sucesso!");
       });
     },
@@ -59,13 +82,13 @@ const BooksProvider = ({ children }) => {
         method: "put",
         route: `/api/v1/Books/${id}`,
       };
-    } else {
-      return {
-        message: "Inserido com sucesso!",
-        method: "post",
-        route: `/api/v1/Books`,
-      };
     }
+
+    return {
+      message: "Inserido com sucesso!",
+      method: "post",
+      route: `/api/v1/Books`,
+    };
   }, []);
 
   const validate = useCallback((state) => {
@@ -77,22 +100,28 @@ const BooksProvider = ({ children }) => {
           switch (validation.type) {
             case "min":
               if ((state[key] || 0) < validation.value) {
-                throw Error(`O valor de ${description} deve ser maior que ${validation.value}!`)
+                throw Error(
+                  `O valor de ${description} deve ser maior que ${validation.value}!`
+                );
               }
               break;
             case "min_char":
               if ((state[key]?.length || 0) < validation.value) {
-                throw Error(`O tamanho de ${description} deve ser maior que ${validation.value}!`)
+                throw Error(
+                  `O tamanho de ${description} deve ser maior que ${validation.value}!`
+                );
               }
               break;
             case "max_char":
               if ((state[key]?.length || 0) > validation.value) {
-                throw Error(`O tamanho de ${description} deve ser menor que ${validation.value}!`)
+                throw Error(
+                  `O tamanho de ${description} deve ser menor que ${validation.value}!`
+                );
               }
               break;
             case "not_null":
               if (validation.value && !state[key]) {
-                throw Error(`${description} é obrigatório!`)
+                throw Error(`${description} é obrigatório!`);
               }
               break;
             default:
@@ -101,7 +130,7 @@ const BooksProvider = ({ children }) => {
         }
       }
     }
-  }, [])
+  }, []);
 
   const send = useCallback(
     async (state, id, afterFunction) => {
@@ -113,15 +142,25 @@ const BooksProvider = ({ children }) => {
         const { message, method, route } = mountFunc(id);
 
         await api[method](route, state)
-          .then(() => {
+          .then((response) => {
             status = "success";
+
+            if (method === "put") {
+              // Change book name on the state
+              const index = data.findIndex((item) => item._id === id);
+              data[index] = state;
+              reduc({ data });
+            } else {
+              // Add new book to the state
+              reduc({ data: data.push(response.data.book) });
+            }
+
             t(status, message);
           })
           .catch(() => {
             t(status, "Erro ao salvar!");
           });
-      }
-      catch (error) {
+      } catch (error) {
         t(status, error.message);
       }
 
@@ -132,7 +171,17 @@ const BooksProvider = ({ children }) => {
 
   return (
     <BooksContext.Provider
-      value={{ data, setCurrentPage, currentPage, book, all, onlyOne, send, del, fetchingAll }}
+      value={{
+        data,
+        setCurrentPage,
+        currentPage,
+        book,
+        all,
+        onlyOne,
+        send,
+        del,
+        fetchingAll,
+      }}
     >
       {children}
     </BooksContext.Provider>

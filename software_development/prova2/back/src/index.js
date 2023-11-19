@@ -7,11 +7,10 @@ import cors from 'cors'
 config();
 
 const app = express();
-
-router(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+router(app);
 
 app.listen(8000, () => {
   console.log("✅ - Server");
@@ -22,6 +21,7 @@ const db = mongoose.connection;
 mongoose.connection.on("error", function (err) {
   console.log("❌ - DB");
 });
+
 db.once("open", function () {
   console.log("✅ - DB");
 });

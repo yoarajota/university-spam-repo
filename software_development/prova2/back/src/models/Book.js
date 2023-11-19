@@ -1,23 +1,14 @@
 import { Schema, model } from "mongoose";
 
-export const Book = model(
+const Book = model(
   "book",
   new Schema({
-    name: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-  })
+    title: { type: String, required: true },
+    description: { type: String, required: true, minlength: 30 },
+    pageCount: { type: Number, required: true, min: 10 },
+    excerpt: { type: String, maxlength: 425 },
+    publishDate: { type: Date, required: true },
+  }, { versionKey: false })
 );
+
+export default Book;
