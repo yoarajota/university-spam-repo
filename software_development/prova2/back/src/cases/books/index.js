@@ -6,7 +6,7 @@ const index = async (_, res) => {
   try {
     return defaultResponse(res).json(await Book.find());
   } catch (error) {
-    console.log("❌ ERROR -" + error);
+    console.log("❌ ERROR - " + error);
   }
 };
 
