@@ -3,6 +3,8 @@ import Book from "../../models/Book.js";
 
 // Function to edit a book
 const edit = async (req, res) => {
+  console.log("❗ Called edit function.");
+
   try {
     const book = await Book.findById(req.params.id);
     Object.assign(book, req.body);

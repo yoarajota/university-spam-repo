@@ -3,6 +3,8 @@ import Book from "../../models/Book.js";
 
 // Function to delete a book;
 const del = async (req, res) => {
+  console.log("❗ Called del function.");
+
   try {
     await Book.findByIdAndDelete(req.params.id);
     return defaultResponse(res).json({

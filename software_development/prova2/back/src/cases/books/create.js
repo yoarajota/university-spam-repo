@@ -3,6 +3,8 @@ import Book from "../../models/Book.js";
 
 // Function to create a new book
 const create = async (req, res) => {
+  console.log("❗ Called create function.");
+
   try {
     // New model instance
     const book = await Book.create(req.body);
