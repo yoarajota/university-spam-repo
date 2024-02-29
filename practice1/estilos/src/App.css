@@ -1,0 +1,17 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.student {
+  border: 2px solid green;
+  width: 100%;
+  list-style-type: none;
+}
+
+.student-details {
+  color: blue;
+  font-size: 23px;
+}

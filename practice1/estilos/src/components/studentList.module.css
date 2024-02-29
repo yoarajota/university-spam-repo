@@ -1,0 +1,10 @@
+.list {
+    border: 2px solid green;
+    width: 100%;
+    list-style-type: none;
+}
+
+.details {
+    color: blue;
+    font-size: 23px;
+}
