@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="button">Clique-me!</button>
+
+    <script>
+        document.getElementById("button").addEventListener('click', () => {
+            const nota1 = parseFloat(prompt("Digite a nota do 1º trimestre:"));
+            const nota2 = parseFloat(prompt("Digite a nota do 2º trimestre:"));
+            const nota3 = parseFloat(prompt("Digite a nota do 3º trimestre:"));
+
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+                alert("Por favor, insira valores numéricos válidos.");
+                return;
+            }
+
+            const media = (nota1 + nota2 + nota3) / 3;
+            alert(`A média final do aluno é ${media.toFixed(2)}.`);
+
+            if (media < 7) {
+                const notaExame = (5 - 0.6 * media) / 0.4;
+                alert(`Para ser aprovado, o aluno precisa de ${notaExame.toFixed(2)} no exame.`);
+            }
+        })
+    </script>
+</body>
+
+</html>
