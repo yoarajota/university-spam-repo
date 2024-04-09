@@ -1,5 +1,4 @@
-import { Decimal128 } from "bson";
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const LivrosSchema = new Schema({
   titulo: {
@@ -15,7 +14,7 @@ const LivrosSchema = new Schema({
     required: true,
   },
   valor_venda: {
-    type: Decimal128,
+    type: Number,
     required: true,
   },
   categoria_id: {
@@ -32,4 +31,4 @@ const LivrosSchema = new Schema({
   },
 });
 
-export default model("Livros", LivrosSchema);
+export default models.Livros || model("Livros", LivrosSchema);

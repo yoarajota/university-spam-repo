@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const VendasSchema = new Schema({
   data: {
@@ -6,7 +6,7 @@ const VendasSchema = new Schema({
     required: true,
   },
   valor_total: {
-    type: Decimal128,
+    type: Number,
     required: true,
   },
   cliente_id: {
@@ -15,4 +15,4 @@ const VendasSchema = new Schema({
   },
 });
 
-export default model("Vendas", VendasSchema);
+export default models.Vendas || model("Vendas", VendasSchema);

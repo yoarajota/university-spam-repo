@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const VendasItensSchema = new Schema({
   livro_id: {
@@ -15,4 +15,4 @@ const VendasItensSchema = new Schema({
   },
 });
 
-export default model("VendasItens", VendasItensSchema);
+export default models.VendasItens || model("VendasItens", VendasItensSchema);

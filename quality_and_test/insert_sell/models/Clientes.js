@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const ClientesSchema = new Schema({
   cpf: {
@@ -19,4 +19,4 @@ const ClientesSchema = new Schema({
   },
 });
 
-export default model("Clientes", ClientesSchema);
+export default models.Clientes || model("Clientes", ClientesSchema);

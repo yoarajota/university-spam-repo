@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const CategoriaSchema = new Schema({
   nome: {
@@ -7,4 +7,4 @@ const CategoriaSchema = new Schema({
   },
 });
 
-export default model("Categoria", CategoriaSchema);
+export default models.Categoria || model("Categoria", CategoriaSchema);

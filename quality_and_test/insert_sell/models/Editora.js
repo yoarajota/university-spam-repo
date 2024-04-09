@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const EditoraSchema = new Schema({
   nome: {
@@ -7,4 +7,4 @@ const EditoraSchema = new Schema({
   },
 });
 
-export default model("Editora", EditoraSchema);
+export default models.Editora || model("Editora", EditoraSchema);
