@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="button">Clique-me!</button>
+
+    <script>
+        document.getElementById("button").addEventListener('click', () => {
+            do {
+                const numero = parseInt(prompt("Digite um número:"));
+                if (isNaN(numero)) {
+                    alert("Por favor, insira um número válido.");
+                    return;
+                }
+
+                if (numero % 2 === 0) {
+                    alert("O número é par.");
+                } else {
+                    alert("O número é ímpar.");
+                }
+
+                const continuar = confirm("Deseja informar mais números?");
+                if (!continuar) {
+                    break;
+                }
+            } while (true);
+        })
+    </script>
+</body>
+
+</html>

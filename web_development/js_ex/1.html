@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="button">Clique-me!</button>
+
+    <script>
+        document.getElementById("button").addEventListener('click', () => {
+            const distancia = parseFloat(prompt("Digite a distância percorrida (em metros):"));
+            const tempo = parseFloat(prompt("Digite o tempo gasto (em segundos):"));
+
+            if (isNaN(distancia) || isNaN(tempo)) {
+                alert("Por favor, insira valores numéricos válidos.");
+                return;
+            }
+
+            const velocidadeMedia = distancia / tempo;
+            alert(`A velocidade média é de ${velocidadeMedia.toFixed(2)} metros por segundo.`);
+        })
+    </script>
+</body>
+
+</html>
