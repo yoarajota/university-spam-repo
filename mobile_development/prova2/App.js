@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useReducer, useEffect, useMemo } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeScreen from "./screens/HomeScreen";
 import AddTaskScreen from "./screens/AddTaskScreen";
 import AddContactScreen from "./screens/AddContactScreen";
 import ContactList from "./screens/ContactList";
 import SignIn from "./screens/SignIn";
 import Profile from "./screens/Profile";
-import SignOut from "./screens/SignOut";
+import Splash from "./components/Splash";
+import AuthContext from "./components/Auth";
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(true);
   const [state, dispatch] = useReducer(
     (prevState, action) => {
@@ -45,10 +45,6 @@ export default function App() {
       userToken: null,
     }
   );
-
-  if (isLoading) {
-    return <Splash />;
-  }
 
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -82,18 +78,21 @@ export default function App() {
     []
   );
 
+  if (state.isLoading) {
+    return <Splash />;
+  }
+
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Lista de Tarefas">
-          {userToken == null ? (
-            <Stack.Screen
-              name="SignIn"
-              component={SignIn}
-              options={{ title: "Sign in" }}
-              initialParams={{ setUserToken }}
-            />
-          ) : (
+          <Stack.Screen
+            name="Entrar"
+            component={SignIn}
+            options={{ title: "Entrar" }}
+            initialParams={{ setUserToken }}
+          />
+          {userToken && (
             <>
               <Stack.Screen name="Lista de Tarefas" component={HomeScreen} />
               <Stack.Screen name="Adicionar Tarefa" component={AddTaskScreen} />
@@ -107,7 +106,6 @@ export default function App() {
               />
               <Stack.Screen name="Lista de Contatos" component={ContactList} />
               <Stack.Screen name="Perfil" component={Profile} />
-              <Stack.Screen name="Sair" component={SignOut} />
             </>
           )}
         </Stack.Navigator>

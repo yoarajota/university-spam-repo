@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Button,
@@ -17,7 +17,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function HomeScreen({ navigation }) {
   const [tasks, setTasks] = useState([]);
-  const { signOut } = useContext(AuthContext);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -36,6 +35,10 @@ export default function HomeScreen({ navigation }) {
       <Button
         title="Adicionar Tarefa"
         onPress={() => navigation.navigate("Adicionar Tarefa")}
+      />
+      <Button
+        title="Contatos"
+        onPress={() => navigation.navigate("Lista de Contatos")}
       />
       <FlatList
         data={tasks}
@@ -60,10 +63,10 @@ export default function HomeScreen({ navigation }) {
         )}
       />
       <Button
-        title="Contatos"
-        onPress={() => navigation.navigate("Lista de Contatos")}
+        style={styles.profile}
+        title="Perfil"
+        onPress={() => navigation.navigate("Perfil")}
       />
-      <Button title="Sign Out" onPress={() => signOut()} />
     </View>
   );
 }
@@ -89,5 +92,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "10%",
+  },
+  profile: {
+    marginTop: 10,
   },
 });

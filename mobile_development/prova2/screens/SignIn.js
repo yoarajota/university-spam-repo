@@ -1,7 +1,9 @@
-import { StyleSheet } from 'react-native';
-import { View, Text,TextInput, Button } from 'react-native';
+import { useContext, useState } from "react";
+import { StyleSheet } from "react-native";
+import { View, Text, TextInput, Button } from "react-native";
+import AuthContext from "../components/Auth";
 
-function SignIn() {
+function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn } = useContext(AuthContext);
@@ -16,7 +18,14 @@ function SignIn() {
         placeholder="Password"
         secureTextEntry={true}
       />
-      <Button title="Sign In" onPress={() => signIn({ email, password })} />
+      
+      <Button
+        title="Entrar"
+        onPress={async () => {
+          signIn({ email, password });
+          await navigation.navigate("Lista de Tarefas");
+        }}
+      />
     </View>
   );
 }

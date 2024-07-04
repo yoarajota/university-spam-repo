@@ -1,11 +1,23 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
-import { View, Text, ActivityIndicator } from "react-native";
-function Profile() {
+import { View, Text, Button } from "react-native";
+import AuthContext from "../components/Auth";
+import { useContext } from "react";
+
+function Profile({ navigation }) {
+  const { signOut } = useContext(AuthContext);
+
   return (
     <View style={styles.container}>
       <Text>Perfil</Text>
-      <ActivityIndicator size="large" />
+      <Button
+        style={styles.signOut}
+        title="Sign Out"
+        onPress={async () => {
+          await signOut();
+          navigation.navigate("Entrar");
+        }}
+      />
     </View>
   );
 }
