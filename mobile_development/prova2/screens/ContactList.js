@@ -39,10 +39,6 @@ const ContactList = ({ navigation }) => {
                     </View>
                 )}
             />
-            <Button
-                title="Tarefas"
-                onPress={() => navigation.navigate("Lista de Tarefas")}
-            />
         </View>
     );
 };

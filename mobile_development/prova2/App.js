@@ -7,6 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import AddTaskScreen from "./screens/AddTaskScreen";
 import AddContactScreen from "./screens/AddContactScreen";
 import ContactList from "./screens/ContactList";
+import TaskList from "./screens/TaskList";
 import SignIn from "./screens/SignIn";
 import Profile from "./screens/Profile";
 import Splash from "./components/Splash";
@@ -85,7 +86,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Lista de Tarefas">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Entrar"
             component={SignIn}
@@ -94,7 +95,7 @@ export default function App() {
           />
           {userToken && (
             <>
-              <Stack.Screen name="Lista de Tarefas" component={HomeScreen} />
+              <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Adicionar Tarefa" component={AddTaskScreen} />
               <Stack.Screen
                 name="Detalhes da Tarefa"
@@ -104,6 +105,7 @@ export default function App() {
                 name="Adicionar Contato"
                 component={AddContactScreen}
               />
+              <Stack.Screen name="Lista de Tarefas" component={TaskList} />
               <Stack.Screen name="Lista de Contatos" component={ContactList} />
               <Stack.Screen name="Perfil" component={Profile} />
             </>

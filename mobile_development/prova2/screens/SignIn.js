@@ -23,7 +23,7 @@ function SignIn({ navigation }) {
         title="Entrar"
         onPress={async () => {
           signIn({ email, password });
-          await navigation.navigate("Lista de Tarefas");
+          await navigation.navigate("Home");
         }}
       />
     </View>
