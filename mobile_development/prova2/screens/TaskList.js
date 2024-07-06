@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   View,
-  Button,
+  Pressable,
   StyleSheet,
   FlatList,
   Text,
@@ -14,6 +14,7 @@ import {
   deleteTaskContactsByTaskId,
   fetchTasksForList,
 } from "../database";
+import DButton from "../components/DButton";
 
 const ContactList = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
@@ -32,7 +33,7 @@ const ContactList = ({ navigation }) => {
 
   return (
     <View>
-      <Button
+      <DButton
         title="Adicionar Tarefa"
         onPress={() => navigation.navigate("Adicionar Tarefa")}
       />
@@ -70,7 +71,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,
-    backgroundColor: "#f9c2ff",
+    borderColor: "black",
+    borderWidth: 1,
     borderRadius: 5,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -80,13 +82,13 @@ const styles = StyleSheet.create({
     height: "90%",
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
   },
   titleContainer: {
     width: "90%",
   },
   buttonContainer: {
-    width: "10%",
+
   },
 });
 

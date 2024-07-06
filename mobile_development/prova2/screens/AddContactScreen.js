@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 import { insertContact } from '../database';
+import DButton from '../components/DButton';
 
 export default function AddContactScreen({ navigation }) {
     const [name, setName] = useState('');
@@ -35,7 +36,7 @@ export default function AddContactScreen({ navigation }) {
                 onChangeText={setPhone}
             />
 
-            <Button
+            <DButton
                 title="Adicionar Contato"
                 onPress={addContact}
             />

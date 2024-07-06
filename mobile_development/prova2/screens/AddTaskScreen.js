@@ -1,6 +1,6 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { View, Text, TextInput, Pressable, StyleSheet, Alert } from "react-native";
 import {
   deleteTaskContactsByTaskId,
   fetchContactsForList,
@@ -17,6 +17,7 @@ import {
   isEnrolledAsync,
   authenticateAsync,
 } from "expo-local-authentication";
+import DButton from "../components/DButton";
 
 export default function AddTaskScreen({ navigation, route }) {
   const { taskId = null } = route?.params ?? {};
@@ -29,7 +30,7 @@ export default function AddTaskScreen({ navigation, route }) {
   const [time, setTime] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
 
-  const [name, setname] = useState("");
+  const [name, setName] = useState("");
   const [description, setdescription] = useState("");
 
   const [contacts, setContacts] = useState([]);
@@ -52,7 +53,7 @@ export default function AddTaskScreen({ navigation, route }) {
   useEffect(() => {
     if (taskId > 0) {
       getTaskById(taskId, (task) => {
-        setname(task.name);
+        setName(task.name);
         setdescription(task.description);
         setDate(new Date(task.date));
         setTime(new Date(task.time));
@@ -112,7 +113,7 @@ export default function AddTaskScreen({ navigation, route }) {
       <Text style={styles.label}>Título da Tarefa</Text>
       <TextInput
         style={styles.input}
-        onChangeText={setname}
+        onChangeText={setName}
         value={name}
         editable={isEdit}
       />
@@ -177,7 +178,7 @@ export default function AddTaskScreen({ navigation, route }) {
         />
       )}
 
-      <Button
+      <DButton
         title={
           isEdit
             ? taskId

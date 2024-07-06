@@ -16,7 +16,6 @@ import AuthContext from "./components/Auth";
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [userToken, setUserToken] = useState(true);
   const [state, dispatch] = useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -47,15 +46,19 @@ export default function App() {
     }
   );
 
+  function setUserToken(token) {
+    dispatch({ type: "SIGN_IN", token });
+  }
+
   useEffect(() => {
     const bootstrapAsync = async () => {
-      let userToken;
+      let token;
       try {
-        userToken = await AsyncStorage.getItem("@storage_Key");
+        token = await AsyncStorage.getItem("@storage_Key");
       } catch (e) {
-        console.log(e);
+        token = false;
       }
-      dispatch({ type: "RESTORE_TOKEN", token: userToken });
+      dispatch({ type: "RESTORE_TOKEN", token });
     };
     bootstrapAsync();
   }, []);
@@ -63,7 +66,7 @@ export default function App() {
   const authContext = useMemo(
     () => ({
       signIn: async (data) => {
-        let myToken = "dummy-auth-token";
+        let myToken = "false-jwt";
         await AsyncStorage.setItem("@storage_Key", myToken);
         dispatch({ type: "SIGN_IN", token: myToken });
       },
@@ -73,7 +76,7 @@ export default function App() {
       },
       signUp: async (data) => {
         `AsyncStorage`;
-        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
+        dispatch({ type: "SIGN_IN", token: "false-jwt" });
       },
     }),
     []
@@ -82,6 +85,8 @@ export default function App() {
   if (state.isLoading) {
     return <Splash />;
   }
+
+  console.log(state.userToken);
 
   return (
     <AuthContext.Provider value={authContext}>
@@ -93,7 +98,7 @@ export default function App() {
             options={{ title: "Entrar" }}
             initialParams={{ setUserToken }}
           />
-          {userToken && (
+          {state.userToken && (
             <>
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Adicionar Tarefa" component={AddTaskScreen} />

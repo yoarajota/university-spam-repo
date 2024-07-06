@@ -1,26 +1,20 @@
 import React, { useContext, useState } from "react";
-import {
-  View,
-  Button,
-  StyleSheet,
-} from "react-native";
+import { View, Pressable, StyleSheet } from "react-native";
+import DButton from "../components/DButton";
 
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Button
-        style={styles.button}
+      <DButton
         title="Contatos"
         onPress={() => navigation.navigate("Lista de Contatos")}
       />
-      <Button
-        style={styles.button}
+      <DButton
         title="Tarefas"
         onPress={() => navigation.navigate("Lista de Tarefas")}
       />
-      
-      <Button
-        style={styles.button}
+
+      <DButton
         title="Perfil"
         onPress={() => navigation.navigate("Perfil")}
       />
@@ -33,7 +27,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-    margin: 10,
-    backgroundColor: "#f0f0f0",
-  }
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "black",
+    color: "white",
+  },
 });
