@@ -10,7 +10,7 @@ export default function AddContactScreen({ navigation }) {
 
     const addContact = () => {
         insertContact(name, email, phone);
-        navigation.goBack();
+        navigation.navigate("Lista de Contatos");
     };
 
     return (
@@ -34,6 +34,7 @@ export default function AddContactScreen({ navigation }) {
                 style={styles.input}
                 value={phone}
                 onChangeText={setPhone}
+                keyboardType="numeric"
             />
 
             <DButton
