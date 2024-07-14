@@ -80,8 +80,8 @@ export default function AddTaskScreen({ navigation, route }) {
     const timeString = time.toISOString();
 
     if (taskId && taskId > 0) {
-      updateTask(taskId, name, description, dateSting, timeString);
-      deleteTaskContactsByTaskId(taskId);
+      await updateTask(taskId, name, description, dateSting, timeString);
+      await deleteTaskContactsByTaskId(taskId);
       selectedContacts.forEach((contactId) =>
         insertTaskContact(taskId, contactId)
       );
@@ -89,11 +89,17 @@ export default function AddTaskScreen({ navigation, route }) {
       return;
     }
 
-    insertTask(name, description, dateSting, timeString, (taskIdReturn) => {
-      selectedContacts.forEach((contactId) =>
-        insertTaskContact(taskIdReturn, contactId)
-      );
-    });
+    await insertTask(
+      name,
+      description,
+      dateSting,
+      timeString,
+      async (taskIdReturn) => {
+        await selectedContacts.forEach(
+          async (contactId) => await insertTaskContact(taskIdReturn, contactId)
+        );
+      }
+    );
 
     navigation.goBack();
   };

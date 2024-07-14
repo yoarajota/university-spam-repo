@@ -8,8 +8,8 @@ export default function AddContactScreen({ navigation }) {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
-    const addContact = () => {
-        insertContact(name, email, phone);
+    const addContact = async () => {
+        await insertContact(name, email, phone);
         navigation.navigate("Lista de Contatos");
     };
 
